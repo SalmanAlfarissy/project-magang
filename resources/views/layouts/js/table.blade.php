@@ -17,6 +17,15 @@
 <script src="{{ asset('plugins/sweetalert/sweetalert.min.js') }}"></script>
 
 <script>
+    $(document).ready(function(){
+        var firstName = $('#firstName').text();
+        var lastName = $('#lastName').text();
+        var intials = $('#firstName').text().charAt(0) + $('#lastName').text().charAt(0);
+        var profileImage = $('#profileImage').text(intials);
+    });
+</script>
+
+<script>
   $(function () {
     $('#example1').DataTable()
     $('#example2').DataTable({

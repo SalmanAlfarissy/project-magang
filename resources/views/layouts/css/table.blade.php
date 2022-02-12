@@ -18,7 +18,19 @@
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
-
+<style>
+    #profileImage {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        background: #512DA8;
+        font-size: 35px;
+        color: #fff;
+        text-align: center;
+        line-height: 150px;
+        margin: 20px 0;
+    }
+</style>
 <!-- Google Font -->
 <link rel="stylesheet"
       href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">

@@ -29,6 +29,16 @@
 <script src="{{ asset('bower_components/jquery-slimscroll/jquery.slimscroll.min.js') }}"></script>
 <!-- FastClick -->
 <script src="{{ asset('bower_components/fastclick/lib/fastclick.js') }}"></script>
+
+<script>
+    $(document).ready(function(){
+        var firstName = $('#firstName').text();
+        var lastName = $('#lastName').text();
+        var intials = $('#firstName').text().charAt(0) + $('#lastName').text().charAt(0);
+        var profileImage = $('#profileImage').text(intials);
+    });
+</script>
+
 <!-- AdminLTE App -->
 <script src="{{ asset('dist/js/adminlte.min.js') }}"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->

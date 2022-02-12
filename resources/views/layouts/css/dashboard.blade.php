@@ -20,6 +20,20 @@
 <!-- bootstrap wysihtml5 - text editor -->
 <link rel="stylesheet" href="{{ asset('plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css') }}">
 
+<style>
+    #profileImage {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        background: #512DA8;
+        font-size: 35px;
+        color: #fff;
+        text-align: center;
+        line-height: 150px;
+        margin: 20px 0;
+    }
+</style>
+
 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 <!--[if lt IE 9]>

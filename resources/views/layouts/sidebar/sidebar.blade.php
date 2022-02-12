@@ -4,11 +4,11 @@
       <!-- Sidebar user panel -->
       <div class="user-panel">
         <div class="pull-left image">
-          <img src="{{ asset('dist/img/user2-160x160.jpg') }}" class="img-circle" alt="User Image">
+          <img src="{{ asset('dist/img/avatar5.png') }}" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
-          <p>Alexander Pierce</p>
-          <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+          <p>{{ session('admin.name') }}</p>
+          <a href="#"><i class="fa fa-circle text-success"></i> {{ session('admin.level') }}</a>
         </div>
       </div>
       <!-- search form -->
@@ -42,7 +42,7 @@
             </a>
         </li>
 
-        <li>
+        <li class="treeview" style="height: auto;">
           <a href="#">
             <i class="fa fa-dashboard"></i> <span> Magang </span>
             <span class="pull-right-container">
@@ -50,8 +50,8 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="index.html"><i class="fa fa-circle-o"></i> Recipient Magang </a></li>
-            <li><a href="index2.html"><i class="fa fa-circle-o"></i> List Magang </a></li>
+            <li><a href="#"><i class="fa fa-circle-o"></i> Recipient Magang </a></li>
+            <li><a href="#"><i class="fa fa-circle-o"></i> List Magang </a></li>
           </ul>
         </li>
 
