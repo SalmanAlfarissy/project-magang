@@ -5,11 +5,12 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        User
+        Magang
       </h1>
       <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">User</li>
+        <li><a href="{{ route('admin.das') }}"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a href="#">Magang</a></li>
+        <li class="active">Recipient</li>
       </ol>
     </section>
 
@@ -20,12 +21,11 @@
 
           <div class="box">
             <div class="box-header" style="width: 10%;">
-
-                <a href="" class="btn btn-block btn-primary" data-toggle="modal" onclick="create()"><i class="fa fa-plus"></i> User</a>
-                {{-- <a href="{{ route('admin.user-create') }}" class="btn btn-block btn-primary "> <i class="fa fa-plus"></i> User </a> --}}
-                {{-- <a href="" class="btn btn-default btn-rounded mb-4" data-toggle="modal" data-target="#modalRegisterForm">Launch
-                    Modal Register Form</a> --}}
+                <div class="form-group">
+                    <a href="" class="btn btn-block btn-primary" data-toggle="modal" onclick="create()"><i class="fa fa-plus"></i> Recipient</a>
+                </div>
             </div>
+
             <!-- /.box-header -->
             <div class="box-body" id="read">
 
@@ -61,15 +61,8 @@
 
     });
 
-    function create(){
-        $.get("{{ route('admin.user-create') }}",{}, function(data,status){
-            $("#page").html(data);
-            $("#modalRegisterForm").modal('show');
-        });
-    }
-
     function read(){
-        $.get("{{ route('admin.user-read') }}",{}, function(data,status){
+        $.get("{{ route('admin.recipient-read') }}",{}, function(data,status){
             $("#read").html(data);
             $('#add-row').DataTable({
             "pageLength":5,
@@ -77,70 +70,71 @@
         });
     }
 
+    function create(){
+        $.get("{{ route('admin.recipient-create') }}",{}, function(data,status){
+            $("#page").html(data);
+            $("#modalRegisterForm").modal('show');
+        });
+    }
+
     function store() {
-        let dataform = $('#add-user').serialize();
+        let dataform = $('#add-recipient').serialize();
 
             $.ajax({
-                type: $('#add-user').attr('method'),
-                url: $('#add-user').attr('action'),
+                type: $('#add-recipient').attr('method'),
+                url: $('#add-recipient').attr('action'),
                 data: dataform,
                 success: function (data) {
                     $(".close").click();
                     read();
                     swal({
                             title: "Proses Success!!",
-                            text: "Data User Success di Tambahkan..",
+                            text: "Data Recipient Success di Tambahkan..",
                             icon: "success",
                             button: "Ok",
                         });
                 },
                 error: function(err){
-                    if(err.responseJSON.errors.name){
-                        $(".name-error").show().text(err.responseJSON.errors.name[0]);
-                    }else if(err.responseJSON.errors.username){
-                        $(".username-error").show().text(err.responseJSON.errors.username[0]);
-                    }else if(err.responseJSON.errors.password){
-                        $(".password-error").show().text(err.responseJSON.errors.password[0]);
-                    }else if(err.responseJSON.errors.level){
-                        $(".level-error").show().text(err.responseJSON.errors.level[0]);
+                    if(err.responseJSON.errors.id_user){
+                        $(".id_user-error").show().text(err.responseJSON.errors.id_user[0]);
+                    }else if(err.responseJSON.errors.status){
+                        $(".status-error").show().text(err.responseJSON.errors.status[0]);
+                    }else if(err.responseJSON.errors.deskripsi){
+                        $(".deskripsi-error").show().text(err.responseJSON.errors.deskripsi[0]);
                     }
                 }
             });
     }
 
     function show(id){
-        $.get("{{ url('/administrator/user/show') }}/" + id,{}, function(data,status){
+        $.get("{{ url('/administrator/magang/recipient/show') }}/" + id,{}, function(data,status){
             $("#page").html(data);
             $("#modalEditForm").modal('show');
         });
     }
 
     function update() {
-        let dataform = $('#edit-user').serialize();
+        let dataform = $('#edit-recipient').serialize();
 
             $.ajax({
-                type: $('#edit-user').attr('method'),
-                url: $('#edit-user').attr('action'),
+                type: $('#edit-recipient').attr('method'),
+                url: $('#edit-recipient').attr('action'),
                 data: dataform,
                 success: function (data) {
                     $(".close").click();
                     read();
                     swal({
                             title: "Proses Success!!",
-                            text: "Data User Success di Update..",
+                            text: "Data Recipient Success di Update..",
                             icon: "success",
                             button: "Ok",
                         });
                 },
                 error: function(err){
-                    if(err.responseJSON.errors.name){
-                        $(".name-error").show().text(err.responseJSON.errors.name[0]);
-                    }else if(err.responseJSON.errors.username){
-                        $(".username-error").show().text(err.responseJSON.errors.username[0]);
-                    }else if(err.responseJSON.errors.password){
-                        $(".password-error").show().text(err.responseJSON.errors.password[0]);
-                    }else if(err.responseJSON.errors.level){
-                        $(".level-error").show().text(err.responseJSON.errors.level[0]);
+                    if(err.responseJSON.errors.status){
+                        $(".status-error").show().text(err.responseJSON.errors.status[0]);
+                    }else if(err.responseJSON.errors.deskripsi){
+                        $(".deskripsi-error").show().text(err.responseJSON.errors.deskripsi[0]);
                     }
                 }
             });
@@ -149,7 +143,7 @@
     function destroy(id,username) {
 
         swal({
-            title: "Apakah kamu ingin menghapus data, "+username+" ?",
+            title: "Apakah kamu ingin menghapus data recipient, "+username+" ?",
             text: "Data yang sudah di hapus tidak bisa di kembalikan!!",
             icon: "warning",
             buttons: true,
@@ -159,10 +153,10 @@
             if (willDelete) {
                 $.ajax({
                     type:"get",
-                    url:"{{ url('administrator/user/destroy') }}/" + id,
+                    url:"{{ url('administrator/magang/recipient/destroy') }}/" + id,
                     success: function(res){
                         console.log(res);
-                            swal("Data User dengan Username '" +username+"' berhasil di hapus!!", {
+                            swal("Data Recipient dengan Username '" +username+"' berhasil di hapus!!", {
                             icon: "success",
                         });
                         read();
@@ -170,7 +164,7 @@
                 });
 
             } else {
-                swal("Data User dengan Username '"+username+"' batal di hapus!!");
+                swal("Data Recipient dengan Username '"+username+"' batal di hapus!!");
             }
         });
 

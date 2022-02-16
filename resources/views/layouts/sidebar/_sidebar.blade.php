@@ -34,26 +34,26 @@
             </a>
         </li>
 
-        @if ($status->status == 'diterima')
-        <li>
-            <a href="#">
-              <i class="fa fa-dashboard"></i> <span>Absensi</span>
+        @if (session('magang.status') == 'diterima')
+        <li class="{{ ($page=='absensi') ? 'active' : ''}}">
+            <a href="{{ route('magang.absensi') }}">
+              <i class="fa fa-calendar-check-o"></i> <span>Absensi</span>
               <span class="pull-right-container">
               </span>
             </a>
         </li>
 
-        <li>
-          <a href="#">
-            <i class="fa fa-dashboard"></i> <span>Aktivitas</span>
+        <li class="{{ ($page=='aktivitas') ? 'active' : '' }}">
+          <a href="{{ route('magang.aktivitas') }}">
+            <i class="fa fa-list-alt"></i> <span>Aktivitas</span>
             <span class="pull-right-container">
             </span>
           </a>
         </li>
 
-        <li>
-            <a href="#">
-              <i class="fa fa-dashboard"></i> <span>Pengajuan Presentasi</span>
+        <li class="{{ ($page == 'presentasi') ? 'active' : '' }}">
+            <a href="{{ route('magang.pengajuan') }}">
+              <i class="fa fa-pie-chart"></i> <span>Presentasi</span>
               <span class="pull-right-container">
               </span>
             </a>

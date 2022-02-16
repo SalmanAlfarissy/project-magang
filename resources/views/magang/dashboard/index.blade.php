@@ -16,14 +16,14 @@
       </ol>
 
     </section>
-    @if($status->status == 'pengajuan')
+    @if(session('magang.status') == 'pengajuan')
     <section class="content">
         <div class="callout callout-info">
             <h4>Reminder!</h4>
-            {{ $status->deskripsi }}
+            {{ session('magang.status') }}
         </div>
     </section>
-    @elseif($status->status == 'diterima')
+    @elseif(session('magang.status') == 'diterima')
 
     <!-- Main content -->
     <section class="content">
@@ -97,13 +97,5 @@
   </div>
   <!-- /.content-wrapper -->
   @include('layouts.js.dashboar')
-  <script>
-    $(document).ready(function() {
-        window.setTimeout(function() {
-            $(".alert").fadeTo(500, 0).slideUp(500, function(){
-                $(this).remove();
-            });
-        }, 3000);
-    });
-</script>
+
 @endsection

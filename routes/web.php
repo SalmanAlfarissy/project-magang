@@ -1,11 +1,17 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\LoginController;
 use App\Http\Controllers\_LoginController;
+use App\Http\Controllers\MagangController;
+use PHPUnit\TextUI\XmlConfiguration\Group;
+use App\Http\Controllers\AbsensiController;
+use App\Http\Controllers\_AbsensiController;
 use App\Http\Controllers\_ProfileController;
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\LoginController;
-use App\Http\Controllers\UserController;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\_AktivitasController;
+use App\Http\Controllers\_PengajuanController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,15 +24,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
+// fitur admin
+
+Route::get('/',function(){
     return redirect(route('admin.login'));
 });
 
-// fitur admin
-
-//add new admin
 Route::group(['middleware'=>['admin'],'prefix'=>'/administrator'],function(){
+    //dashboard
     Route::get('/',[DashboardController::class,'index'])->name('admin.das');
+
+    //add new user admin
     Route::prefix('/user')->group(function(){
         Route::get('/',[UserController::class,'index'])->name('admin.user');
         Route::get('/create',[UserController::class,'create'])->name('admin.user-create');
@@ -35,6 +43,43 @@ Route::group(['middleware'=>['admin'],'prefix'=>'/administrator'],function(){
         Route::get('/show/{id}',[UserController::class,'show'])->name('admin.user-show');
         Route::post('/update/{id}',[UserController::class,'update'])->name('admin.user-update');
         Route::get('/destroy/{id}',[UserController::class,'destroy'])->name('admin.user-destroy');
+    });
+
+
+    Route::prefix('/magang')->group(function(){
+        //Recipient Magang
+        Route::prefix('/recipient')->group(function(){
+            Route::get('/',[MagangController::class,'indexRecipient'])->name('admin.recipient');
+            Route::get('/create',[MagangController::class,'createRecipient'])->name('admin.recipient-create');
+            Route::get('/read',[MagangController::class,'readRecipient'])->name('admin.recipient-read');
+            Route::post('/store',[MagangController::class,'storeRecipient'])->name('admin.recipient-store');
+            Route::get('/show/{id}',[MagangController::class,'showRecipient'])->name('admin.recipient-show');
+            Route::post('/update/{id}',[MagangController::class,'updateRecipient'])->name('admin.recipient-update');
+            Route::get('/destroy/{id}',[MagangController::class,'destroyRecipient'])->name('admin.recipient-destroy');
+        });
+        //List Magang
+        Route::prefix('/list')->group(function(){
+            Route::get('/',[MagangController::class,'indexList'])->name('admin.list');
+            Route::get('/create',[MagangController::class,'createList'])->name('admin.list-create');
+            Route::get('/read',[MagangController::class,'readList'])->name('admin.list-read');
+            Route::post('/store',[MagangController::class,'storeList'])->name('admin.list-store');
+            Route::get('/show/{id}',[MagangController::class,'showList'])->name('admin.list-show');
+            Route::post('/update/{id}',[MagangController::class,'updateList'])->name('admin.list-update');
+            Route::get('/data/{id}',[MagangController::class,'data'])->name('admin.data-show');
+            Route::post('/updateData/{id}',[MagangController::class,'updateData'])->name('admin.data-update');
+            Route::get('/destroy/{id}',[MagangController::class,'destroyList'])->name('admin.list-destroy');
+        });
+    });
+
+    //
+    Route::prefix('/absensi')->group(function(){
+        Route::get('/',[AbsensiController::class,'index'])->name('admin.absensi');
+        Route::get('/create',[AbsensiController::class,'create'])->name('admin.absensi-create');
+        Route::get('/read',[AbsensiController::class,'read'])->name('admin.absensi-read');
+        Route::post('/store',[AbsensiController::class,'store'])->name('admin.absensi-store');
+        Route::get('/show/{id}',[AbsensiController::class,'show'])->name('admin.absensi-show');
+        Route::post('/update/{id}',[AbsensiController::class,'update'])->name('admin.absensi-update');
+        Route::get('/destroy/{id}',[AbsensiController::class,'destroy'])->name('admin.absensi-destroy');
     });
 
 });
@@ -53,6 +98,38 @@ Route::group(['middleware'=>['magang'],'prefix'=>'/magang'],function(){
     Route::get('/profile',[_ProfileController::class,'index'])->name('magang.profile');
     Route::get('/datamagang',[_LoginController::class,'dataMagang'])->name('magang.dataMagang');
     Route::post('/datamagang/store',[_LoginController::class,'dataStore'])->name('magang.dataMagang-store');
+
+    //absensi
+    Route::prefix('/absensi')->group(function(){
+        Route::get('/',[_AbsensiController::class,'index'])->name('magang.absensi');
+        Route::get('/hadir',[_AbsensiController::class,'hadir'])->name('magang.hadir');
+        Route::post('/izin',[_AbsensiController::class,'izin'])->name('magang.izin');
+        Route::post('/sakit',[_AbsensiController::class,'sakit'])->name('magang.sakit');
+        Route::get('/telat',[_AbsensiController::class,'telat'])->name('magang.telat');
+        Route::get('/absen',[_AbsensiController::class,'absen'])->name('magang.absen');
+    });
+
+    //aktivitas
+    Route::prefix('/aktivitas')->group(function(){
+        Route::get('/',[_AktivitasController::class,'index'])->name('magang.aktivitas');
+        Route::get('/create',[_AktivitasController::class,'create'])->name('magang.aktivitas-create');
+        Route::get('/read',[_AktivitasController::class,'read'])->name('magang.aktivitas-read');
+        Route::post('/store',[_AktivitasController::class,'store'])->name('magang.aktivitas-store');
+        Route::get('/show/{id}',[_AktivitasController::class,'show'])->name('magang.aktivitas-show');
+        Route::post('/update/{id}',[_AktivitasController::class,'update'])->name('magang.aktivitas-update');
+
+    });
+
+    //presentasi
+    Route::prefix('/presentasi')->group(function(){
+        Route::get('/',[_PengajuanController::class,'index'])->name('magang.pengajuan');
+        Route::get('/create',[_PengajuanController::class,'create'])->name('magang.pengajuan-create');
+        Route::get('/read',[_PengajuanController::class,'read'])->name('magang.pengajuan-read');
+        Route::post('/store',[_PengajuanController::class,'store'])->name('magang.pengajuan-store');
+        Route::get('/show/{id}',[_PengajuanController::class,'show'])->name('magang.pengajuan-show');
+        Route::post('/update/{id}',[_PengajuanController::class,'update'])->name('magang.pengajuan-update');
+        Route::get('/destroy/{id}',[_PengajuanController::class,'destroy'])->name('magang.pengajuan-destroy');
+    });
 });
 
 //register

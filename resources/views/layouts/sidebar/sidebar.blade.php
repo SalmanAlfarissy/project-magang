@@ -42,22 +42,22 @@
             </a>
         </li>
 
-        <li class="treeview" style="height: auto;">
+        <li class="treeview {{ ($page == 'recipient' || $page == 'list') ? 'menu-open' : '' }}" style="height: auto;">
           <a href="#">
-            <i class="fa fa-dashboard"></i> <span> Magang </span>
+            <i class="fa fa-user-plus"></i> <span> Magang </span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
-          <ul class="treeview-menu">
-            <li><a href="#"><i class="fa fa-circle-o"></i> Recipient Magang </a></li>
-            <li><a href="#"><i class="fa fa-circle-o"></i> List Magang </a></li>
+          <ul class="treeview-menu" style="{{ ($page == 'recipient' || $page == 'list') ? 'display: block;' : '' }}">
+            <li class="{{ ($page == 'recipient') ? 'active' : '' }}"><a href="{{ route('admin.recipient') }}"><i class="fa fa-circle-o"></i> Recipient Magang </a></li>
+            <li class="{{ ($page == 'list') ? 'active' : '' }}"><a href="{{ route('admin.list') }}"><i class="fa fa-circle-o"></i> List Magang </a></li>
           </ul>
         </li>
 
-        <li>
-            <a href="#">
-              <i class="fa fa-dashboard"></i> <span>List Absensi</span>
+        <li class="{{ ($page == 'absensi') ? 'active' : '' }}">
+            <a href="{{ route('admin.absensi') }}">
+              <i class="fa fa-calendar-check-o"></i> <span>List Absensi</span>
               <span class="pull-right-container">
               </span>
             </a>

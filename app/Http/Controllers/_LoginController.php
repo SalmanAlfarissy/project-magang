@@ -86,8 +86,9 @@ class _LoginController extends Controller
         ]);
 
         $auth=User::join('data_magang','data_magang.id_user','=','user.id')
+        ->join('magang','magang.id_user','=','user.id')
         ->where('username',$validate['username'])
-        ->select('user.*','data_magang.foto')
+        ->select('user.*','data_magang.foto','magang.status','magang.deskripsi')
         ->first();
 
         if(!empty($auth)){
@@ -98,7 +99,9 @@ class _LoginController extends Controller
                             'id'=>$auth->id,
                             'level'=>$auth->level,
                             'name'=>$auth->name,
-                            'foto'=>$auth->foto
+                            'foto'=>$auth->foto,
+                            'status'=>$auth->status,
+                            'deskripsi'=>$auth->deskripsi,
                         ]
                     ]);
                     $data=DataMagang::where('id_user',$auth->id)->first();

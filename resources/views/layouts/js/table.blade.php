@@ -16,6 +16,11 @@
 <!-- page script -->
 <script src="{{ asset('plugins/sweetalert/sweetalert.min.js') }}"></script>
 
+<!-- Javascript Bootstrap Datepicker -->
+<script
+src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.js">
+</script>
+
 <script>
     $(document).ready(function(){
         var firstName = $('#firstName').text();
@@ -35,7 +40,15 @@
       'ordering'    : true,
       'info'        : true,
       'autoWidth'   : false
-    })
+    });
+
+    //Date picker
+    $('.datepicker').datepicker({
+      format: "dd/mm/yyyy",
+      autoclose: true,
+      useCurrent: false
+    });
+
   })
 
 </script>

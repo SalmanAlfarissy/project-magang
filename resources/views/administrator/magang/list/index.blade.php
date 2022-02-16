@@ -5,11 +5,12 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        User
+        Magang
       </h1>
       <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">User</li>
+        <li><a href="{{ route('admin.das') }}"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a href="#">Magang</a></li>
+        <li class="active">List</li>
       </ol>
     </section>
 
@@ -20,8 +21,16 @@
 
           <div class="box">
             <div class="box-header" style="width: 10%;">
+                <div class="form-group">
+                    <table>
+                        <tr>
+                            <td><a href="" class="btn btn-block btn-primary" data-toggle="modal" onclick="create()"><i class="fa fa-plus"></i> Magang</a></td>
+                            <td style="padding-left: 7px;"><a href="#" class="btn btn-block btn-info"><i class="fa fa-print"></i> Cetak</a></td></td>
 
-                <a href="" class="btn btn-block btn-primary" data-toggle="modal" onclick="create()"><i class="fa fa-plus"></i> User</a>
+                        </tr>
+                    </table>
+
+                </div>
                 {{-- <a href="{{ route('admin.user-create') }}" class="btn btn-block btn-primary "> <i class="fa fa-plus"></i> User </a> --}}
                 {{-- <a href="" class="btn btn-default btn-rounded mb-4" data-toggle="modal" data-target="#modalRegisterForm">Launch
                     Modal Register Form</a> --}}
@@ -49,6 +58,8 @@
 
   {{-- @include('administrator.admin.create') --}}
   @include('layouts.js.table')
+
+
   <script >
     $.ajaxSetup({
         headers: {
@@ -61,15 +72,16 @@
 
     });
 
+
     function create(){
-        $.get("{{ route('admin.user-create') }}",{}, function(data,status){
+        $.get("{{ route('admin.list-create') }}",{}, function(data,status){
             $("#page").html(data);
             $("#modalRegisterForm").modal('show');
         });
     }
 
     function read(){
-        $.get("{{ route('admin.user-read') }}",{}, function(data,status){
+        $.get("{{ route('admin.list-read') }}",{}, function(data,status){
             $("#read").html(data);
             $('#add-row').DataTable({
             "pageLength":5,
@@ -78,18 +90,18 @@
     }
 
     function store() {
-        let dataform = $('#add-user').serialize();
+        let dataform = $('#add-list').serialize();
 
             $.ajax({
-                type: $('#add-user').attr('method'),
-                url: $('#add-user').attr('action'),
+                type: $('#add-list').attr('method'),
+                url: $('#add-list').attr('action'),
                 data: dataform,
                 success: function (data) {
                     $(".close").click();
                     read();
                     swal({
                             title: "Proses Success!!",
-                            text: "Data User Success di Tambahkan..",
+                            text: "Data list Success di Tambahkan..",
                             icon: "success",
                             button: "Ok",
                         });
@@ -101,33 +113,31 @@
                         $(".username-error").show().text(err.responseJSON.errors.username[0]);
                     }else if(err.responseJSON.errors.password){
                         $(".password-error").show().text(err.responseJSON.errors.password[0]);
-                    }else if(err.responseJSON.errors.level){
-                        $(".level-error").show().text(err.responseJSON.errors.level[0]);
                     }
                 }
             });
     }
 
     function show(id){
-        $.get("{{ url('/administrator/user/show') }}/" + id,{}, function(data,status){
+        $.get("{{ url('/administrator/magang/list/show') }}/" + id,{}, function(data,status){
             $("#page").html(data);
             $("#modalEditForm").modal('show');
         });
     }
 
     function update() {
-        let dataform = $('#edit-user').serialize();
+        let dataform = $('#edit-list').serialize();
 
             $.ajax({
-                type: $('#edit-user').attr('method'),
-                url: $('#edit-user').attr('action'),
+                type: $('#edit-list').attr('method'),
+                url: $('#edit-list').attr('action'),
                 data: dataform,
                 success: function (data) {
                     $(".close").click();
                     read();
                     swal({
                             title: "Proses Success!!",
-                            text: "Data User Success di Update..",
+                            text: "Data list Success di Update..",
                             icon: "success",
                             button: "Ok",
                         });
@@ -137,10 +147,43 @@
                         $(".name-error").show().text(err.responseJSON.errors.name[0]);
                     }else if(err.responseJSON.errors.username){
                         $(".username-error").show().text(err.responseJSON.errors.username[0]);
-                    }else if(err.responseJSON.errors.password){
-                        $(".password-error").show().text(err.responseJSON.errors.password[0]);
-                    }else if(err.responseJSON.errors.level){
-                        $(".level-error").show().text(err.responseJSON.errors.level[0]);
+                    }
+                }
+            });
+    }
+
+    function data(id){
+        $.get("{{ url('/administrator/magang/list/data') }}/" + id,{}, function(data,status){
+            $("#page").html(data);
+            $("#modalEditForm").modal('show');
+        });
+    }
+
+    function updateData() {
+        let dataform = $('#edit-data').serialize();
+        // return console.log(dataform);
+
+            $.ajax({
+                type: $('#edit-data').attr('method'),
+                url: $('#edit-data').attr('action'),
+                data: dataform,
+                success: function (data) {
+                    $(".close").click();
+                    read();
+                    swal({
+                            title: "Proses Success!!",
+                            text: "Data Akun Success di Update..",
+                            icon: "success",
+                            button: "Ok",
+                        });
+                },
+                error: function(err){
+                    if(err.responseJSON.errors.alamat){
+                        $(".alamat-error").show().text(err.responseJSON.errors.alamat[0]);
+                    }else if(err.responseJSON.errors.awal_magang){
+                        $(".awal_magang-error").show().text(err.responseJSON.errors.awal_magang[0]);
+                    }else if(err.responseJSON.errors.selesai_magang){
+                        $(".selesai_magang-error").show().text(err.responseJSON.errors.selesai_magang[0]);
                     }
                 }
             });
@@ -159,10 +202,10 @@
             if (willDelete) {
                 $.ajax({
                     type:"get",
-                    url:"{{ url('administrator/user/destroy') }}/" + id,
+                    url:"{{ url('administrator/magang/list/destroy') }}/" + id,
                     success: function(res){
                         console.log(res);
-                            swal("Data User dengan Username '" +username+"' berhasil di hapus!!", {
+                            swal("Data list dengan Username '" +username+"' berhasil di hapus!!", {
                             icon: "success",
                         });
                         read();
@@ -170,7 +213,7 @@
                 });
 
             } else {
-                swal("Data User dengan Username '"+username+"' batal di hapus!!");
+                swal("Data list dengan Username '"+username+"' batal di hapus!!");
             }
         });
 

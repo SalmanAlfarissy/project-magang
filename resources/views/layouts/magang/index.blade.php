@@ -14,10 +14,10 @@
 <div class="wrapper">
 
     {{-- header --}}
-  @include('layouts.header.header')
+  @include('layouts.header._header')
 
   {{-- sidebar --}}
-  @include('layouts.sidebar.sidebar')
+  @include('layouts.sidebar._sidebar')
 
     {{-- content --}}
   @yield('content')

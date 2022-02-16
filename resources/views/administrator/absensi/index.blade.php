@@ -5,11 +5,11 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        User
+        List Absensi
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">User</li>
+        <li class="active">List Absensi</li>
       </ol>
     </section>
 
@@ -20,11 +20,12 @@
 
           <div class="box">
             <div class="box-header" style="width: 10%;">
-
-                <a href="" class="btn btn-block btn-primary" data-toggle="modal" onclick="create()"><i class="fa fa-plus"></i> User</a>
-                {{-- <a href="{{ route('admin.user-create') }}" class="btn btn-block btn-primary "> <i class="fa fa-plus"></i> User </a> --}}
-                {{-- <a href="" class="btn btn-default btn-rounded mb-4" data-toggle="modal" data-target="#modalRegisterForm">Launch
-                    Modal Register Form</a> --}}
+                <table>
+                    <tr>
+                        <td><a href="" class="btn btn-block btn-primary" data-toggle="modal" onclick="create()"><i class="fa fa-plus"></i> Absensi</a></td>
+                        <td style="padding-left: 7px;"><a href="#" class="btn btn-block btn-info"><i class="fa fa-print"></i> Cetak</a></td></td>
+                    </tr>
+                </table>
             </div>
             <!-- /.box-header -->
             <div class="box-body" id="read">
@@ -62,14 +63,14 @@
     });
 
     function create(){
-        $.get("{{ route('admin.user-create') }}",{}, function(data,status){
+        $.get("{{ route('admin.absensi-create') }}",{}, function(data,status){
             $("#page").html(data);
             $("#modalRegisterForm").modal('show');
         });
     }
 
     function read(){
-        $.get("{{ route('admin.user-read') }}",{}, function(data,status){
+        $.get("{{ route('admin.absensi-read') }}",{}, function(data,status){
             $("#read").html(data);
             $('#add-row').DataTable({
             "pageLength":5,

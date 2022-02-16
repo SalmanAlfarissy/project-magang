@@ -3,8 +3,8 @@
     <tr>
       <th style="width: 5%">No</th>
       <th>Nama</th>
-      <th>Username</th>
-      <th>Level</th>
+      <th>Status</th>
+      <th>Deskripsi</th>
       <th style="width: 10%">Aksi</th>
     </tr>
     </thead>
@@ -13,10 +13,10 @@
             <tr>
                 <td>{{ $index+1 }}</td>
                 <td>{{ $item->name }}</td>
-                <td>{{ $item->username }}</td>
-                <td>{{ $item->level }}</td>
+                <td><span class="label @if($item->status == 'pengajuan') label-warning @elseif($item->status == 'diterima') label-success @endif label-danger ">{{ $item->status }}</span></td>
+                <td>{{ $item->deskripsi }}</td>
                 <td>
-                    <button type="button" onclick="show({{ $item->id }})" class="btn btn-social-icon btn-bitbucket"><i class="fa fa-edit"></i></button>
+                    <button type="button" onclick="show({{ $item->id }})" class="btn btn-social-icon btn-primary"><i class="fa fa-check-square-o"></i></button>
                     <button type="button" class="btn btn-social-icon btn-google" onclick="destroy({{ $item->id }},'{{ $item->username }}')"><i class="fa fa-trash"></i></button>
                 </td>
             </tr>
@@ -27,8 +27,8 @@
     <tr>
         <th style="width: 5%">No</th>
         <th>Nama</th>
-        <th>Username</th>
-        <th>Level</th>
+        <th>Status</th>
+        <th>Deskripsi</th>
         <th style="width: 10%">Aksi</th>
     </tr>
     </tfoot>

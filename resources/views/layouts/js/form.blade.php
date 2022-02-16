@@ -17,6 +17,8 @@
 <script src="{{ asset('bower_components/bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min.js') }}"></script>
 <!-- bootstrap time picker -->
 <script src="{{ asset('plugins/timepicker/bootstrap-timepicker.min.js') }}"></script>
+<!-- DataTables -->
+<script src="{{ asset('bower_components/datatables.net/js/jquery.dataTables.min.js') }}"></script>
 <!-- SlimScroll -->
 <script src="{{ asset('bower_components/jquery-slimscroll/jquery.slimscroll.min.js') }}"></script>
 <!-- iCheck 1.0.1 -->
@@ -66,7 +68,8 @@
     //Date picker
     $('.datepicker').datepicker({
       format: "dd/mm/yyyy",
-      autoclose: true
+      autoclose: true,
+      useCurrent: false
     })
 
     //iCheck for checkbox and radio inputs
