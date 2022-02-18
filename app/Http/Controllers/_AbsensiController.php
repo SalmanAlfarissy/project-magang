@@ -10,6 +10,12 @@ class _AbsensiController extends Controller
 {
     public function index(){
 
+        $kehadiran = Absensi::where('status','hadir')->count();
+        $telat = Absensi::where('status','telat')->count();
+        $izin = Absensi::where('status','izin')->count();
+        $sakit = Absensi::where('status','sakit')->count();
+        $absen = Absensi::where('status','absen')->count();
+
         $data = Absensi::where('id_user',session('magang.id'))
         ->where('tanggal',date('Y-m-d'))
         ->first();
@@ -38,18 +44,34 @@ class _AbsensiController extends Controller
 
                 return view('magang.absensi.index',[
                     'page'=>'absensi',
-                    'data'=>$data
+                    'data'=>$data,
+                    'hadir'=>$kehadiran,
+                    'telat'=>$telat,
+                    'izin'=>$izin,
+                    'sakit'=>$sakit,
+                    'absen'=>$absen
                 ]);
             }
             return view('magang.absensi.index',[
                 'page'=>'absensi',
-                'data'=>$data
+                'data'=>$data,
+                'hadir'=>$kehadiran,
+                'telat'=>$telat,
+                'izin'=>$izin,
+                'sakit'=>$sakit,
+                'absen'=>$absen
+
             ]);
         }
 
         return view('magang.absensi.index',[
             'page'=>'absensi',
-            'data'=>$data
+            'data'=>$data,
+            'hadir'=>$kehadiran,
+            'telat'=>$telat,
+            'izin'=>$izin,
+            'sakit'=>$sakit,
+            'absen'=>$absen
         ]);
     }
 

@@ -12,6 +12,8 @@ use App\Http\Controllers\_ProfileController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\_AktivitasController;
 use App\Http\Controllers\_PengajuanController;
+use App\Http\Controllers\AktivitasController;
+use App\Http\Controllers\PresentasiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,7 +29,7 @@ use App\Http\Controllers\_PengajuanController;
 // fitur admin
 
 Route::get('/',function(){
-    return redirect(route('admin.login'));
+    return redirect(route('magang.login'));
 });
 
 Route::group(['middleware'=>['admin'],'prefix'=>'/administrator'],function(){
@@ -68,18 +70,45 @@ Route::group(['middleware'=>['admin'],'prefix'=>'/administrator'],function(){
             Route::get('/data/{id}',[MagangController::class,'data'])->name('admin.data-show');
             Route::post('/updateData/{id}',[MagangController::class,'updateData'])->name('admin.data-update');
             Route::get('/destroy/{id}',[MagangController::class,'destroyList'])->name('admin.list-destroy');
+            Route::get('/cetak',[MagangController::class,'cetak'])->name('admin.list-cetak');
         });
     });
 
-    //
+    //absensi
     Route::prefix('/absensi')->group(function(){
         Route::get('/',[AbsensiController::class,'index'])->name('admin.absensi');
-        Route::get('/create',[AbsensiController::class,'create'])->name('admin.absensi-create');
-        Route::get('/read',[AbsensiController::class,'read'])->name('admin.absensi-read');
+        Route::get('/create/{id}',[AbsensiController::class,'create'])->name('admin.absensi-create');
+        Route::get('/data/{id}',[AbsensiController::class,'data'])->name('admin.absensi-data');
         Route::post('/store',[AbsensiController::class,'store'])->name('admin.absensi-store');
         Route::get('/show/{id}',[AbsensiController::class,'show'])->name('admin.absensi-show');
         Route::post('/update/{id}',[AbsensiController::class,'update'])->name('admin.absensi-update');
         Route::get('/destroy/{id}',[AbsensiController::class,'destroy'])->name('admin.absensi-destroy');
+        Route::get('/cetak',[AbsensiController::class,'cetak'])->name('admin.absensi-cetak');
+    });
+
+    //aktivitas
+    Route::prefix('/aktivitas')->group(function(){
+        Route::get('/',[AktivitasController::class,'index'])->name('admin.aktivitas');
+        Route::get('/create/{id}',[AktivitasController::class,'create'])->name('admin.aktivitas-create');
+        Route::get('/data/{id}',[AktivitasController::class,'data'])->name('admin.aktivitas-data');
+        Route::post('/store',[AktivitasController::class,'store'])->name('admin.aktivitas-store');
+        Route::get('/show/{id}',[AktivitasController::class,'show'])->name('admin.aktivitas-show');
+        Route::post('/update/{id}',[AktivitasController::class,'update'])->name('admin.aktivitas-update');
+        Route::get('/destroy/{id}',[AktivitasController::class,'destroy'])->name('admin.aktivitas-destroy');
+        Route::get('/cetak',[AktivitasController::class,'cetak'])->name('admin.aktivitas-cetak');
+    });
+
+    //Presentasi
+    Route::prefix('/presentasi')->group(function(){
+        Route::get('/',[PresentasiController::class,'index'])->name('admin.presentasi');
+        Route::get('/create',[PresentasiController::class,'create'])->name('admin.presentasi-create');
+        Route::get('/approv/{id}',[PresentasiController::class,'approv'])->name('admin.presentasi-approv');
+        Route::post('/save',[PresentasiController::class,'save'])->name('admin.presentasi-save');
+        Route::get('/read',[PresentasiController::class,'read'])->name('admin.presentasi-read');
+        Route::post('/store',[PresentasiController::class,'store'])->name('admin.presentasi-store');
+        Route::get('/show/{id}',[PresentasiController::class,'show'])->name('admin.presentasi-show');
+        Route::post('/update/{id}',[PresentasiController::class,'update'])->name('admin.presentasi-update');
+        Route::get('/destroy/{id}',[PresentasiController::class,'destroy'])->name('admin.presentasi-destroy');
     });
 
 });

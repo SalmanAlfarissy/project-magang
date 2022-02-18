@@ -6,8 +6,10 @@ use App\Models\User;
 use App\Models\Magang;
 use App\Models\DataMagang;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class MagangController extends Controller
 {
@@ -39,13 +41,18 @@ class MagangController extends Controller
     }
 
     public function storeRecipient(Request $request){
-        $magang=new Magang();
+
 
         $validated=$request->validate([
             'id_user'=>'required',
             'status'=>'required',
             'deskripsi'=>'',
         ]);
+
+        $magang=Magang::where('id_user',$validated['id_user'])->first();
+        if(empty($magang)){
+            $magang = new Magang();
+        }
 
         $magang->id_user = $validated['id_user'];
         $magang->status = $validated['status'];
@@ -193,8 +200,8 @@ class MagangController extends Controller
         $dataMagang->nama=$user->name;
         $dataMagang->id_user=$user->id;
         $dataMagang->alamat=$validated['alamat'];
-        $dataMagang->awal_magang=date('Y-d-m',strtotime($validated['awal_magang']));
-        $dataMagang->selesai_magang=date('Y-d-m',strtotime($validated['selesai_magang']));
+        $dataMagang->awal_magang=$validated['awal_magang'];
+        $dataMagang->selesai_magang=$validated['selesai_magang'];
 
         $dataMagang->save();
     }
@@ -208,6 +215,22 @@ class MagangController extends Controller
         $dataMagang->delete();
         $magang->delete();
         $user->delete();
+    }
+
+    public function cetak(){
+
+        $data = User::leftJoin('magang','magang.id_user','=','user.id')
+        ->leftJoin('data_magang','data_magang.id_user','=','user.id')
+        ->where('user.level','=','magang')
+        ->where('magang.status','=','diterima')
+        ->select('user.*','magang.status','data_magang.alamat','data_magang.awal_magang','data_magang.selesai_magang')
+        ->get();
+
+        $pdf = App::make('dompdf.wrapper');
+        $pdf = PDF::loadView('administrator.magang.list.cetak', [
+            'data'=>$data
+        ]);
+        return $pdf->stream();
     }
 
 

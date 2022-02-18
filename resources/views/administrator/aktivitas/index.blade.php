@@ -5,11 +5,11 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        List Absensi
+        List Aktivitas
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">List Absensi</li>
+        <li class="active">List Aktivitas</li>
       </ol>
     </section>
 
@@ -45,7 +45,7 @@
                                 <td>{{ $item->name }}</td>
                                 <td>{{ $item->alamat }}</td>
                                 <td>
-                                    <a href="{{ route('admin.absensi-data',$item->id) }}" class="btn btn-social-icon btn-primary"><i class="fa fa-list-alt"></i></a>
+                                    <a href="{{ route('admin.aktivitas-data',$item->id) }}" class="btn btn-social-icon btn-primary"><i class="fa fa-list-alt"></i></a>
                                 </td>
 
                             </tr>

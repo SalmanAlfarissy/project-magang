@@ -63,17 +63,17 @@
             </a>
         </li>
 
-        <li>
-          <a href="#">
-            <i class="fa fa-dashboard"></i> <span>Aktivitas</span>
+        <li class="{{ ($page == 'aktivitas') ? 'active' : '' }}">
+          <a href="{{ route('admin.aktivitas') }}">
+            <i class="fa fa-list-alt"></i> <span>Aktivitas</span>
             <span class="pull-right-container">
             </span>
           </a>
         </li>
 
-        <li>
-            <a href="#">
-              <i class="fa fa-dashboard"></i> <span>Pengajuan Presentasi</span>
+        <li class="{{ ($page == 'presentasi') ? 'active' : '' }}">
+            <a href="{{ route('admin.presentasi') }}">
+              <i class="fa fa-pie-chart"></i> <span>Presentasi</span>
               <span class="pull-right-container">
               </span>
             </a>

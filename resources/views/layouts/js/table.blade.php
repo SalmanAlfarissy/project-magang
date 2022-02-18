@@ -44,12 +44,12 @@ src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/js/bootst
 
     //Date picker
     $('.datepicker').datepicker({
-      format: "dd/mm/yyyy",
+      format: "yyyy-mm-dd",
       autoclose: true,
       useCurrent: false
     });
 
-  })
+  });
 
 </script>
 

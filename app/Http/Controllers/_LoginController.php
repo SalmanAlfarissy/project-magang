@@ -52,9 +52,9 @@ class _LoginController extends Controller
         $data->id_user = $request->id;
         $data->nama = $validated['nama'];
         $data->alamat = $validated['alamat'];
-        $data->tanggal_lahir = date('Y-d-m',strtotime($validated['tanggal_lahir']));
-        $data->awal_magang = date('Y-d-m',strtotime($validated['awal_magang']));
-        $data->selesai_magang = date('Y-d-m',strtotime($validated['selesai_magang']));
+        $data->tanggal_lahir = $validated['tanggal_lahir'];
+        $data->awal_magang = $validated['awal_magang'];
+        $data->selesai_magang = $validated['selesai_magang'];
 
         $file_name = time().rand(100,99).".".$validated['foto']->getClientOriginalExtension();
         $validated['foto']->move(public_path().'/dist/img/magang',$file_name);
@@ -68,7 +68,7 @@ class _LoginController extends Controller
         $status->status = 'pengajuan';
         $status->save();
 
-        return redirect(route('magang.das'));
+        return redirect(route('magang.logout'));
 
     }
 
@@ -85,11 +85,13 @@ class _LoginController extends Controller
             'password'=>'required|min:5|max:255'
         ]);
 
-        $auth=User::join('data_magang','data_magang.id_user','=','user.id')
-        ->join('magang','magang.id_user','=','user.id')
+        $auth=User::leftjoin('data_magang','data_magang.id_user','=','user.id')
+        ->leftjoin('magang','magang.id_user','=','user.id')
         ->where('username',$validate['username'])
         ->select('user.*','data_magang.foto','magang.status','magang.deskripsi')
         ->first();
+
+
 
         if(!empty($auth)){
             if(Hash::check($validate['password'],$auth->password)){

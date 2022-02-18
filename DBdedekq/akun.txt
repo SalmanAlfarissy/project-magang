@@ -1,0 +1,7 @@
+admin :
+username : dedekq
+pass :12345
+
+Magang:
+Username :admin
+pass : admin

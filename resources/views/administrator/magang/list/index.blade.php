@@ -25,7 +25,7 @@
                     <table>
                         <tr>
                             <td><a href="" class="btn btn-block btn-primary" data-toggle="modal" onclick="create()"><i class="fa fa-plus"></i> Magang</a></td>
-                            <td style="padding-left: 7px;"><a href="#" class="btn btn-block btn-info"><i class="fa fa-print"></i> Cetak</a></td></td>
+                            <td style="padding-left: 7px;"><a href="{{ route('admin.list-cetak') }}" class="btn btn-block btn-info" target="_blank"><i class="fa fa-print"></i> Cetak</a></td></td>
 
                         </tr>
                     </table>
