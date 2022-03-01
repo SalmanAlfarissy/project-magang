@@ -30,7 +30,7 @@
             <!-- small box -->
             <div class="small-box bg-yellow">
               <div class="inner">
-                <h3>{{ $admin }}</h3>
+                <h3>{{ (empty($admin)) ? 0 : $admin }}</h3>
 
                 <p>User Administrator</p>
               </div>
@@ -46,7 +46,7 @@
           <!-- small box -->
           <div class="small-box bg-green">
             <div class="inner">
-              <h3>{{ $magang }}<sup style="font-size: 20px"></sup></h3>
+              <h3>{{ (empty($magang)) ? 0 : $magang }}<sup style="font-size: 20px"></sup></h3>
 
               <p>User Magang</p>
             </div>
@@ -86,7 +86,7 @@
           <!-- small box -->
           <div class="small-box bg-blue-gradient">
             <div class="inner">
-              <h3>{{ $absensi }}<sup style="font-size: 20px"></sup></h3>
+              <h3>{{ (empty($absensi)) ? 0 : $absensi }}<sup style="font-size: 20px"></sup></h3>
 
               <p>Absensi Magang</p>
             </div>
@@ -101,7 +101,7 @@
           <!-- small box -->
           <div class="small-box bg-yellow">
             <div class="inner">
-              <h3>{{ $aktivitas }}</h3>
+              <h3>{{ (empty($aktivitas)) ? 0 : $aktivitas }}</h3>
 
               <p>Aktivitas</p>
             </div>
@@ -116,7 +116,7 @@
           <!-- small box -->
           <div class="small-box bg-red">
             <div class="inner">
-              <h3>{{ $presentasi }}</h3>
+              <h3>{{ (empty($presentasi)) ? 0 : $presentasi }}</h3>
 
               <p>Presentasi</p>
             </div>

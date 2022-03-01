@@ -21,6 +21,7 @@
         <div class="callout callout-info">
             <h4>Reminder!</h4>
             {{ session('magang.status') }}
+            {{ $magang->deskripsi }}
         </div>
     </section>
     @elseif(session('magang.status') == 'diterima')
@@ -33,7 +34,7 @@
           <!-- small box -->
           <div class="small-box bg-aqua">
             <div class="inner">
-              <h3>{{ $absensi }}</h3>
+              <h3>{{ (empty($absensi)) ? 0 : $absensi }}</h3>
 
               <p>Kehadiran</p>
             </div>
@@ -48,9 +49,9 @@
           <!-- small box -->
           <div class="small-box bg-green">
             <div class="inner">
-              <h3>{{ $aktivitas }}<sup style="font-size: 20px"></sup></h3>
+              <h3>{{ (empty($aktivitas->jumlah)) ? 0 : $aktivitas->jumlah }}<sup style="font-size: 20px">%</sup></h3>
 
-              <p>Aktivitas</p>
+              <p>Project</p>
             </div>
             <div class="icon">
               <i class="ion ion-ios-list"></i>

@@ -10,15 +10,21 @@ class _PengajuanController extends Controller
 {
     public function index(){
         $data = Pengajuan::where('id_user',session('magang.id'))->first();
+        $presen = null;
         if (!empty($data)){
             $presen = Presentasi::join('user','user.id','=','presentasi.id_user')
             ->join('pengajuan','pengajuan.id','=','presentasi.id_pengajuan')
             ->where('id_pengajuan',$data->id)
             ->select('presentasi.*','user.name','pengajuan.judul')
             ->first();
+
+            $presen=Presentasi::join('user','user.id','presentasi.id_user')
+            ->join('pengajuan','pengajuan.id','presentasi.id_pengajuan')
+            ->where('id_pengajuan',$data->id)->first();
         }
-        $presen='';
-        // return $data;
+
+
+        // return $presen;
         return view('magang.pengajuan.index',[
             'page'=>'presentasi',
             'data'=>$data,
